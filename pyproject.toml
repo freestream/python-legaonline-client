@@ -18,5 +18,10 @@ Repository = "https://github.com/freestream/legaonline-soap-api-client"
 Changelog = "https://github.com/freestream/legaonline-soap-api-client/blob/main/CHANGES"
 
 [build-system]
-requires = ["setuptools>=40.6.0", "zeep>=4.3.2"]
+requires = ["setuptools>=40.6.0"]
+dependencies = [
+  "zeep>=4.2.1",
+  "requests>=2.31.0",
+  "pytz>=2024.1",
+]
 build-backend = "setuptools.build_meta"
