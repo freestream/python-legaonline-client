@@ -1,0 +1,22 @@
+[project]
+name = "legaonline-soap-api-client"
+version = "1.0.0"
+authors = [
+    { name = "Anton Samuelsson", email = "samuelsson.anton@gmail.com" }
+]
+description = "A Python API client for LegaOnline"
+readme = "README.md"
+requires-python = ">=3.9,<3.14"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+
+[project.urls]
+Repository = "https://github.com/freestream/legaonline-soap-api-client"
+Changelog = "https://github.com/freestream/legaonline-soap-api-client/blob/main/CHANGES"
+
+[build-system]
+requires = ["setuptools>=40.6.0", "zeep>=4.3.2"]
+build-backend = "setuptools.build_meta"
