@@ -8,6 +8,21 @@ from ..query import FilterSpec, SortSpec
 
 
 class CustomerService(BaseService):
+    """
+    Service class for managing customer-related operations.
+
+    This class provides methods to interact with customer data through a ZEEP SOAP service.
+    It extends BaseService and handles customer retrieval with optional sorting, filtering,
+    and attribute inclusion.
+
+    Args:
+        zeep_service: The ZEEP service client for making SOAP requests.
+        auth_manager: Manager for handling authentication and authorization.
+        tzinfo (dt.tzinfo): Timezone information for datetime operations.
+
+    Methods:
+        get_customer: Retrieves customer data with optional sorting, filtering, and attributes.
+    """
     def __init__(self, zeep_service, auth_manager, tzinfo: dt.tzinfo):
         super().__init__(zeep_service, auth_manager, tzinfo)
 
