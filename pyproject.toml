@@ -1,27 +1,35 @@
 [project]
-name = "legaonline-soap-api-client"
+name = "lega_soap"
 version = "1.0.0"
 authors = [
-    { name = "Anton Samuelsson", email = "samuelsson.anton@gmail.com" }
+  { name = "Anton Samuelsson", email = "samuelsson.anton@gmail.com" }
 ]
 description = "A Python API client for LegaOnline"
 readme = "README.md"
 requires-python = ">=3.9,<3.14"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
 ]
-license = "MIT"
+license = { text = "MIT" }
 
-[project.urls]
-Repository = "https://github.com/freestream/legaonline-soap-api-client"
-Changelog = "https://github.com/freestream/legaonline-soap-api-client/blob/main/CHANGES"
-
-[build-system]
-requires = ["setuptools>=40.6.0"]
 dependencies = [
   "zeep>=4.2.1",
   "requests>=2.31.0",
   "pytz>=2024.1",
 ]
+
+[project.urls]
+Repository = "https://github.com/freestream/legaonline-soap-api-client"
+Changelog = "https://github.com/freestream/legaonline-soap-api-client/blob/main/CHANGES"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[build-system]
+requires = ["setuptools>=40.6.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["lega_soap*"]
