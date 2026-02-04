@@ -36,6 +36,8 @@ class BaseService:
     Raises:
         ServiceError: When a SOAP method is not found or when execution fails.
     """
+    __slots__ = ("_service", "_auth", "_tzinfo")
+    
     def __init__(
         self,
         zeep_service: Any,

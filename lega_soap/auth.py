@@ -60,6 +60,8 @@ class AuthManager:
         ...     # Use token for authenticated requests
         ...     pass
     """
+    __slots__ = ("_service", "_creds", "_token")
+    
     def __init__(
         self,
         zeep_service: Any,
