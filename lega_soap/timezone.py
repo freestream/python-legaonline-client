@@ -7,11 +7,28 @@ from zoneinfo import ZoneInfo
 
 def get_default_tzinfo() -> dt.tzinfo:
     """
-    Default timezone selection:
+    Get the default timezone information for the application.
 
-    1) If environment variable TZ is set to an IANA name, use it (e.g. "Europe/Stockholm")
-    2) Else use OS local timezone via datetime.now().astimezone().tzinfo
-    3) Else fallback to UTC
+    This function attempts to determine the appropriate timezone in the following order:
+    1. Uses the timezone specified in the 'TZ' environment variable if available
+    2. Falls back to the system's local timezone
+    3. Defaults to UTC if neither of the above can be determined
+
+    Returns:
+        dt.tzinfo: A timezone info object representing the default timezone.
+            Returns ZoneInfo from TZ environment variable if set and valid,
+            otherwise returns the local timezone, or UTC as a last resort.
+
+    Examples:
+        >>> # With TZ environment variable set
+        >>> os.environ['TZ'] = 'America/New_York'
+        >>> tz = get_default_tzinfo()
+        >>> # Returns ZoneInfo('America/New_York')
+        
+        >>> # Without TZ environment variable
+        >>> del os.environ['TZ']
+        >>> tz = get_default_tzinfo()
+        >>> # Returns system local timezone or UTC
     """
     tz_env = os.environ.get("TZ")
     if tz_env:
