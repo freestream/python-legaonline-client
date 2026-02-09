@@ -86,7 +86,7 @@ class CalendarService(BaseService):
         Returns:
             SoapResponse: The SOAP response containing user location data in XML format.
         """
-        sort_xml = sorting.to_xml() if sorting else ""        
+        sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetGetUserLocationXml", sort=sort_xml, filter=filter_xml, **kwargs)
 
@@ -106,6 +106,6 @@ class CalendarService(BaseService):
             May raise exceptions related to SOAP communication errors or invalid parameters,
             depending on the implementation of the _call method.
         """
-        sort_xml = sorting.to_xml() if sorting else ""        
+        sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetUserLocation", sort=sort_xml, filter=filter_xml, **kwargs)

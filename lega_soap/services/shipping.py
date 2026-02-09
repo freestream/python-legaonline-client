@@ -50,6 +50,6 @@ class ShippingService(BaseService):
         Returns:
             SoapResponse: The response from the SOAP service containing shipping method information in XML format.
         """
-        sort_xml = sorting.to_xml() if sorting else "" 
+        sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetShippingMethodXml", *args, sort=sort_xml, filter=filter_xml, **kwargs)

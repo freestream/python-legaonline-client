@@ -156,9 +156,9 @@ class AccountService(BaseService):
         Retrieve external account user data in XML format.
 
         Args:
-            sorting (Optional[SortSpec]): Specification for sorting the results. 
+            sorting (Optional[SortSpec]): Specification for sorting the results.
                 If None, no sorting is applied.
-            filtering (Optional[FilterSpec]): Specification for filtering the results. 
+            filtering (Optional[FilterSpec]): Specification for filtering the results.
                 If None, no filtering is applied.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
 
@@ -245,4 +245,3 @@ class AccountService(BaseService):
             connection errors or service-specific exceptions.
         """
         return self._call("UpdateExternalAccountUserXml", *args, **kwargs, users=users)
-    

@@ -37,7 +37,7 @@ class BaseService:
         ServiceError: When a SOAP method is not found or when execution fails.
     """
     __slots__ = ("_service", "_auth", "_tzinfo")
-    
+
     def __init__(
         self,
         zeep_service: Any,
@@ -119,7 +119,7 @@ class BaseServiceNoAuth:
         >>> service = BaseServiceNoAuth(zeep_service, timezone.utc)
         >>> response = service._call_noauth('GetData', param1='value1')
     """
-    
+
 
     __slots__ = ("_service", "_tzinfo")
 

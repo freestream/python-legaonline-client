@@ -11,8 +11,8 @@ class ReportService(BaseService):
     """
     Service class for managing reports via SOAP API.
 
-    This class provides methods for report-related operations including retrieval of printer profiles, 
-    report documents, and report URLs with sorting and filtering capabilities. 
+    This class provides methods for report-related operations including retrieval of printer profiles,
+    report documents, and report URLs with sorting and filtering capabilities.
     It inherits from BaseService and implements SOAP service calls for report management functionality.
 
     The ReportService handles:

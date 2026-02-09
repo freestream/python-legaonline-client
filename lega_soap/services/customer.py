@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import datetime as dt
-from typing import Any
+from typing import Any, Optional
 
 from ..types import SoapResponse
-from typing import Optional
 from ..query import FilterSpec, IntListSpec, SortSpec
 from .base import BaseService
 
@@ -57,7 +55,8 @@ class CustomerService(BaseService):
             May raise exceptions related to SOAP communication or invalid customer contact IDs,
             depending on the implementation of the underlying _call method.
         """
-        customer_contact_list_xml = customer_contact_list.to_xml() if customer_contact_list else ""
+        customer_contact_list_xml = customer_contact_list.to_xml(
+        ) if customer_contact_list else ""
         return self._call("DeleteCustomerContact", customerContactIDs=customer_contact_list_xml, **kwargs)
 
     def delete_customer_contact_attribute(self, customer_contact_attribute_list: Optional[IntListSpec] = None, **kwargs: Any) -> SoapResponse:
@@ -75,7 +74,8 @@ class CustomerService(BaseService):
         Raises:
             May raise exceptions related to SOAP communication or service errors.
         """
-        customer_contact_attribute_list_xml = customer_contact_attribute_list.to_xml() if customer_contact_attribute_list else ""
+        customer_contact_attribute_list_xml = customer_contact_attribute_list.to_xml(
+        ) if customer_contact_attribute_list else ""
         return self._call("DeleteCustomerContactAttribute", CustomerContactAttributeLnkIDs=customer_contact_attribute_list_xml, **kwargs)
 
     def get_customer(
@@ -286,15 +286,15 @@ class CustomerService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        
+
         return self._call(
             "GetCustomerContactV2",
             sort=sort_xml,
             filter=filter_xml,
             includeAttributes=include_attributes,
             **kwargs,
-        **kwargs,
-    )
+            **kwargs,
+        )
 
     def get_customer_contact_v2_xml(
         self,
@@ -327,8 +327,8 @@ class CustomerService(BaseService):
             filter=filter_xml,
             includeAttributes=include_attributes,
             **kwargs,
-        **kwargs,
-    )
+            **kwargs,
+        )
 
     def get_customer_contact_xml(
         self,
@@ -361,8 +361,8 @@ class CustomerService(BaseService):
             filter=filter_xml,
             includeAttributes=include_attributes,
             **kwargs,
-        **kwargs,
-    )
+            **kwargs,
+        )
 
     def get_customer_group(
         self,
@@ -390,7 +390,7 @@ class CustomerService(BaseService):
             >>> filter_spec = FilterSpec(field="active", value=True)
             >>> response = service.get_customer_group(sorting=sort_spec, filtering=filter_spec)
         """
-        
+
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetCustomerGroup", sort=sort_xml, filter=filter_xml, **kwargs)
@@ -530,11 +530,11 @@ class CustomerService(BaseService):
         Retrieve customer data in XML format using the GetCustomerV2Xml SOAP method.
 
         Args:
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
-            include_attributes (bool, optional): Whether to include customer attributes in the response. 
+            include_attributes (bool, optional): Whether to include customer attributes in the response.
                 Defaults to False.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
@@ -544,7 +544,7 @@ class CustomerService(BaseService):
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetCustomerV2Xml", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes, **kwargs)
-    
+
     def get_customer_v3(
         self,
         *,
@@ -579,7 +579,7 @@ class CustomerService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        
+
         return self._call("GetCustomerV3", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes, **kwargs)
 
     def get_customer_v3_xml(
@@ -592,14 +592,14 @@ class CustomerService(BaseService):
     ) -> SoapResponse:
         """
         Retrieve customer data in XML format using the GetCustomerV3Xml SOAP method.
-        This method fetches customer information with optional sorting, filtering, and 
+        This method fetches customer information with optional sorting, filtering, and
         attribute inclusion capabilities.
         Args:
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 If provided, will be converted to XML format. Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 If provided, will be converted to XML format. Defaults to None.
-            include_attributes (bool, optional): Whether to include customer attributes in the response. 
+            include_attributes (bool, optional): Whether to include customer attributes in the response.
                 Defaults to False.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
         Returns:
@@ -615,7 +615,7 @@ class CustomerService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        
+
         return self._call("GetCustomerV3Xml", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes, **kwargs)
 
     def get_customer_v4(
@@ -642,7 +642,7 @@ class CustomerService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        
+
         return self._call("GetCustomerV4", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes, **kwargs)
 
     def get_customer_v4_xml(
@@ -730,11 +730,11 @@ class CustomerService(BaseService):
         Retrieve customer data in XML format using the GetCustomerV5Xml SOAP method.
 
         Args:
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
-            include_attributes (bool, optional): Whether to include customer attributes in the response. 
+            include_attributes (bool, optional): Whether to include customer attributes in the response.
                 Defaults to False.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP method.
 
@@ -839,8 +839,8 @@ class CustomerService(BaseService):
             customerContactID=customer_contact_id,
             strSenderDescription=sender_description,
             **kwargs,
-        **kwargs,
-    )
+            **kwargs,
+        )
 
     def send_customer_password(
         self,
@@ -854,12 +854,12 @@ class CustomerService(BaseService):
 
         Args:
             customer_id (int): The unique identifier of the customer.
-            sender_description (Optional[str], optional): A description of the sender 
+            sender_description (Optional[str], optional): A description of the sender
                 to be included in the email. Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service.
 
         Returns:
-            SoapResponse: The response object from the SOAP service containing the 
+            SoapResponse: The response object from the SOAP service containing the
                 result of the password send operation.
         """
         return self._call("SendCustomerPassword", customerID=customer_id, strSenderDescription=sender_description, **kwargs)
@@ -869,12 +869,12 @@ class CustomerService(BaseService):
         Set or update customer information in the LegaOnline system.
 
         Args:
-            customer (Optional[Any], optional): The customer object or data to be set/updated. 
+            customer (Optional[Any], optional): The customer object or data to be set/updated.
                 Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
 
         Returns:
-            SoapResponse: The response object from the SOAP service containing the result 
+            SoapResponse: The response object from the SOAP service containing the result
                 of the SetCustomer operation.
 
         Raises:
@@ -887,16 +887,16 @@ class CustomerService(BaseService):
         Set or update customer contact information in the LegaOnline system.
 
         Args:
-            customer_contact (Optional[Any], optional): The customer contact object or data 
+            customer_contact (Optional[Any], optional): The customer contact object or data
                 structure containing contact information to be set. Defaults to None.
             **kwargs (Any): Additional keyword arguments to be passed to the SOAP service call.
 
         Returns:
-            SoapResponse: The response object from the SOAP service containing the result 
+            SoapResponse: The response object from the SOAP service containing the result
                 of the SetCustomerContact operation.
 
         Raises:
-            May raise exceptions related to SOAP service calls depending on the underlying 
+            May raise exceptions related to SOAP service calls depending on the underlying
             _call implementation.
         """
         return self._call("SetCustomerContact", customerContact=customer_contact, **kwargs)
@@ -906,16 +906,16 @@ class CustomerService(BaseService):
         Set or update customer contact attributes in the LegaOnline system.
 
         Args:
-            customer_contact_attribute (Optional[Any], optional): The customer contact attribute object or data 
+            customer_contact_attribute (Optional[Any], optional): The customer contact attribute object or data
                 structure containing attribute information to be set. Defaults to None.
             **kwargs (Any): Additional keyword arguments to be passed to the SOAP service call.
 
         Returns:
-            SoapResponse: The response object from the SOAP service containing the result 
+            SoapResponse: The response object from the SOAP service containing the result
                 of the SetCustomerContactAttributes operation.
 
         Raises:
-            May raise exceptions related to SOAP service calls depending on the underlying 
+            May raise exceptions related to SOAP service calls depending on the underlying
             _call implementation.
         """
         return self._call("SetCustomerContactAttributes", customerContactAttribute=customer_contact_attribute, **kwargs)
@@ -928,7 +928,7 @@ class CustomerService(BaseService):
         customer contact attributes.
 
         Args:
-            customer_contact_attribute (Optional[str], optional): XML string containing the customer 
+            customer_contact_attribute (Optional[str], optional): XML string containing the customer
                 contact attributes to be set. Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
 
@@ -992,16 +992,16 @@ class CustomerService(BaseService):
         Set customer shipping information.
 
         Args:
-            customer_shipping_list (Optional[Any], optional): A list or object containing customer shipping 
+            customer_shipping_list (Optional[Any], optional): A list or object containing customer shipping
                 information to be set. Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
 
         Returns:
-            SoapResponse: The response object from the SOAP service call containing the result of the 
+            SoapResponse: The response object from the SOAP service call containing the result of the
                 SetCustomerShipping operation.
 
         Raises:
-            May raise exceptions from the underlying SOAP service call depending on the implementation 
+            May raise exceptions from the underlying SOAP service call depending on the implementation
             of the _call method.
         """
         return self._call("SetCustomerShipping", customerShippingList=customer_shipping_list, **kwargs)
@@ -1011,7 +1011,7 @@ class CustomerService(BaseService):
         Set customer shipping and pickup information.
 
         Args:
-            customer_shipping_list (Optional[Any], optional): The list of customer shipping and pickup details 
+            customer_shipping_list (Optional[Any], optional): The list of customer shipping and pickup details
                 to be set in the system. Defaults to None.
             **kwargs (Any): Additional keyword arguments to be passed to the SOAP service call.
 
@@ -1134,4 +1134,4 @@ class CustomerService(BaseService):
         Returns:
             SoapResponse: The response from the SOAP service containing the result of the operation.
         """
-        return self._call( "SetMasterCustomerID", customerID=customer_id, masterCustomerID=master_customer_id, **kwargs)
+        return self._call("SetMasterCustomerID", customerID=customer_id, masterCustomerID=master_customer_id, **kwargs)

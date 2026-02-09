@@ -18,7 +18,7 @@ class MiscService(BaseService):
         >>> misc_service = MiscService()
         >>> response = misc_service.get_company_logo_url()
     """
-    
+
     __slots__ = ()
 
     def get_company_logo_url(self, *args: Any, **kwargs: Any) -> SoapResponse:

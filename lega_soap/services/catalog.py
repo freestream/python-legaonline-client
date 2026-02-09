@@ -55,7 +55,7 @@ class CatalogService(BaseService):
 
         Args:
             *args (Any): Variable length argument list passed to the underlying SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 If provided, will be converted to XML format. Defaults to None.
             filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 If provided, will be converted to XML format. Defaults to None.
@@ -127,9 +127,9 @@ class CatalogService(BaseService):
 
         Args:
             *args (Any): Variable length argument list to be passed to the SOAP call.
-            sorting (Optional[SortSpec], optional): Sorting specification for the results. 
+            sorting (Optional[SortSpec], optional): Sorting specification for the results.
                 If provided, will be converted to XML format. Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification for the results. 
+            filtering (Optional[FilterSpec], optional): Filtering specification for the results.
                 If provided, will be converted to XML format. Defaults to None.
             **kwargs (Any): Arbitrary keyword arguments to be passed to the SOAP call.
 
@@ -196,9 +196,9 @@ class CatalogService(BaseService):
 
         Args:
             *args: Variable length argument list passed to the underlying SOAP call.
-            sorting (Optional[SortSpec], optional): Sorting specification object that defines how to sort 
+            sorting (Optional[SortSpec], optional): Sorting specification object that defines how to sort
                 the category results. Will be converted to XML if provided. Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification object that defines how to 
+            filtering (Optional[FilterSpec], optional): Filtering specification object that defines how to
                 filter the category results. Will be converted to XML if provided. Defaults to None.
             **kwargs: Arbitrary keyword arguments passed to the underlying SOAP call.
 
@@ -408,7 +408,7 @@ class CatalogService(BaseService):
             **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
 
         Returns:
-            SoapResponse: The response from the SOAP service containing object category 
+            SoapResponse: The response from the SOAP service containing object category
                           question data in XML format.
 
         Note:
@@ -425,9 +425,9 @@ class CatalogService(BaseService):
 
         Args:
             *args: Additional positional arguments to pass to the SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
             **kwargs: Additional keyword arguments to pass to the SOAP call.
 
@@ -435,7 +435,7 @@ class CatalogService(BaseService):
             SoapResponse: The response from the GetQuestion SOAP service call.
 
         Note:
-            If sorting or filtering specifications are provided, they will be converted 
+            If sorting or filtering specifications are provided, they will be converted
             to XML format before being passed to the SOAP service.
         """
         sort_xml = sorting.to_xml() if sorting else ""

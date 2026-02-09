@@ -25,9 +25,9 @@ class AvailabilityService(BaseService):
     Methods:
         get_availability(*args, **kwargs) -> SoapResponse:
             Retrieves availability information by calling the GetAvailability SOAP method.
-            
+
         get_availability_xml(*args, **kwargs) -> SoapResponse:
-            Retrieves availability information in XML format by calling the 
+            Retrieves availability information in XML format by calling the
             GetAvailabilityXml SOAP method.
     """
     __slots__ = ()

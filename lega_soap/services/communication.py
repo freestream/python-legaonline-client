@@ -178,15 +178,15 @@ class CommunicationService(BaseService):
         All email content parameters are optional and can be customized.
 
         Args:
-            username (Optional[str], optional): The username of the user to send the password to. 
+            username (Optional[str], optional): The username of the user to send the password to.
                 Defaults to None.
-            from_email (Optional[str], optional): The sender's email address for the password email. 
+            from_email (Optional[str], optional): The sender's email address for the password email.
                 Defaults to None.
-            mail_subject (Optional[str], optional): The subject line of the password email. 
+            mail_subject (Optional[str], optional): The subject line of the password email.
                 Defaults to None.
-            mail_text (Optional[str], optional): The body text of the password email. 
+            mail_text (Optional[str], optional): The body text of the password email.
                 Defaults to None.
-            password_text (Optional[str], optional): Additional text to include with the password. 
+            password_text (Optional[str], optional): Additional text to include with the password.
                 Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 

@@ -36,9 +36,9 @@ class ObjectService(BaseService):
 
         Args:
             *args (Any): Additional positional arguments to pass to the SOAP call.
-            sorting (Optional[SortSpec], optional): Sorting specification for the result set. 
+            sorting (Optional[SortSpec], optional): Sorting specification for the result set.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification to apply to the query. 
+            filtering (Optional[FilterSpec], optional): Filtering specification to apply to the query.
                 Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
@@ -60,14 +60,14 @@ class ObjectService(BaseService):
 
         Args:
             *args: Variable length argument list passed to the SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
             **kwargs: Arbitrary keyword arguments passed to the SOAP call.
 
         Returns:
-            SoapResponse: The response from the GetObjectImageXml SOAP operation containing 
+            SoapResponse: The response from the GetObjectImageXml SOAP operation containing
                 the object image data in XML format.
         """
         sort_xml = sorting.to_xml() if sorting else ""
@@ -95,11 +95,11 @@ class ObjectService(BaseService):
         Examples:
             >>> # Get seating without sorting or filtering
             >>> response = service.get_object_seating()
-            >>> 
+            >>>
             >>> # Get seating with custom sorting
             >>> sort_spec = SortSpec(field="seat_number", order="asc")
             >>> response = service.get_object_seating(sorting=sort_spec)
-            >>> 
+            >>>
             >>> # Get seating with filtering and sorting
             >>> filter_spec = FilterSpec(section="A")
             >>> response = service.get_object_seating(sorting=sort_spec, filtering=filter_spec)
@@ -261,14 +261,14 @@ class ObjectService(BaseService):
 
         Args:
             *args (Any): Variable length argument list passed to the SOAP service call.
-            sorting (Optional[SortSpec], optional): Sorting specification object that defines how results 
+            sorting (Optional[SortSpec], optional): Sorting specification object that defines how results
                 should be sorted. Will be converted to XML format. Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification object that defines which 
+            filtering (Optional[FilterSpec], optional): Filtering specification object that defines which
                 results should be included. Will be converted to XML format. Defaults to None.
             **kwargs (Any): Arbitrary keyword arguments passed to the SOAP service call.
 
         Returns:
-            SoapResponse: The response object from the GetRentObjectV2 SOAP service call containing 
+            SoapResponse: The response object from the GetRentObjectV2 SOAP service call containing
                 rent object information.
         """
         sort_xml = sorting.to_xml() if sorting else ""
@@ -308,9 +308,9 @@ class ObjectService(BaseService):
 
         Args:
             *args (Any): Additional positional arguments to pass to the SOAP call.
-            sorting (Optional[SortSpec], optional): Sorting specification for the query results. 
+            sorting (Optional[SortSpec], optional): Sorting specification for the query results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification to filter query results. 
+            filtering (Optional[FilterSpec], optional): Filtering specification to filter query results.
                 Defaults to None.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
@@ -332,9 +332,9 @@ class ObjectService(BaseService):
 
         Args:
             *args: Variable length argument list passed to the underlying SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
             **kwargs: Arbitrary keyword arguments passed to the underlying SOAP call.
 
@@ -351,7 +351,7 @@ class ObjectService(BaseService):
 
         Args:
             *args: Additional positional arguments to pass to the SOAP call.
-            sorting (Optional[SortSpec]): Specification for sorting the results. 
+            sorting (Optional[SortSpec]): Specification for sorting the results.
                 If provided, will be converted to XML format.
             filtering (Optional[FilterSpec]): Specification for filtering the results.
                 If provided, will be converted to XML format.

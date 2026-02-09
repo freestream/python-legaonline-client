@@ -4,15 +4,15 @@ import datetime as dt
 from typing import Any, Optional
 
 from ..query import (
-    IntListSpec, 
-    SortSpec, 
-    FilterSpec, 
-    OccasionAnswerSpec, 
+    IntListSpec,
+    SortSpec,
+    FilterSpec,
+    OccasionAnswerSpec,
     OccasionQuantitySpec,
-    OccasionLocationSpec, 
+    OccasionLocationSpec,
     OccasionSeatingInfoSpec,
-    OccasionObjectAnswerSpec, 
-    OccasionParticipantNumberSpec, 
+    OccasionObjectAnswerSpec,
+    OccasionParticipantNumberSpec,
     XmlArray
 )
 from ..types import SoapResponse
@@ -62,10 +62,10 @@ class OccasionService(BaseService):
         """
         Activate one or more occasions.
         Args:
-            occasion_ids: Optional specification of occasion IDs to activate. If None, 
+            occasion_ids: Optional specification of occasion IDs to activate. If None,
                 no ID list is included in the SOAP request.
         Returns:
-            SoapResponse: The response from the SOAP service containing the result 
+            SoapResponse: The response from the SOAP service containing the result
                 of the activation operation.
         Example:
             >>> service = OccasionService()
@@ -98,12 +98,12 @@ class OccasionService(BaseService):
         """
         Cancel one or more occasions.
         Args:
-            occasion_ids (Optional[IntListSpec], optional): A specification containing a list of 
+            occasion_ids (Optional[IntListSpec], optional): A specification containing a list of
                 occasion IDs to cancel. If None, no occasions will be cancelled. Defaults to None.
         Returns:
             SoapResponse: The SOAP response from the CancelOccasion operation.
         Raises:
-            May raise exceptions related to SOAP communication or XML processing depending on 
+            May raise exceptions related to SOAP communication or XML processing depending on
             the implementation of _call() and IntListSpec.to_xml().
         """
         occasion_ids_xml = occasion_ids.to_xml() if occasion_ids else ""
@@ -178,11 +178,11 @@ class OccasionService(BaseService):
 
         Args:
             *args: Additional positional arguments to pass to the SOAP call.
-            occasion_ids (Optional[IntListSpec], optional): List specification of occasion IDs to check availability for. 
+            occasion_ids (Optional[IntListSpec], optional): List specification of occasion IDs to check availability for.
                 Defaults to None.
             start_date (Optional[dt.date], optional): Start date for the availability period. Defaults to None.
             end_date (Optional[dt.date], optional): End date for the availability period. Defaults to None.
-            exclude_occasion_id (Optional[int], optional): ID of the occasion to exclude from availability check. 
+            exclude_occasion_id (Optional[int], optional): ID of the occasion to exclude from availability check.
                 Defaults to None.
             **kwargs: Additional keyword arguments to pass to the SOAP call.
 
@@ -201,7 +201,7 @@ class OccasionService(BaseService):
 
         Args:
             *args (Any): Variable positional arguments to be passed to the SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 If provided, will be converted to XML format. Defaults to None.
             filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 If provided, will be converted to XML format. Defaults to None.
@@ -360,14 +360,14 @@ class OccasionService(BaseService):
 
         Args:
             *args: Variable length argument list to pass to the SOAP call.
-            sorting (Optional[SortSpec]): Specification for sorting the results. 
+            sorting (Optional[SortSpec]): Specification for sorting the results.
                 If provided, will be converted to XML format. Defaults to None.
             filtering (Optional[FilterSpec]): Specification for filtering the results.
                 If provided, will be converted to XML format. Defaults to None.
             **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
 
         Returns:
-            SoapResponse: The response from the SOAP service containing occasion 
+            SoapResponse: The response from the SOAP service containing occasion
                 location data in XML format.
         """
         sort_xml = sorting.to_xml() if sorting else ""
@@ -414,7 +414,7 @@ class OccasionService(BaseService):
             **kwargs: Arbitrary keyword arguments to pass to the SOAP service.
 
         Returns:
-            SoapResponse: The response from the SOAP service containing occasion 
+            SoapResponse: The response from the SOAP service containing occasion
                           participant numbers in XML format.
 
         Note:
@@ -458,9 +458,9 @@ class OccasionService(BaseService):
 
         Args:
             *args (Any): Variable length argument list to be passed to the SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results. 
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 Defaults to None.
             **kwargs (Any): Arbitrary keyword arguments to be passed to the SOAP call.
 
@@ -477,7 +477,7 @@ class OccasionService(BaseService):
 
         Args:
             *args: Variable length argument list passed to the underlying SOAP call.
-            sorting (Optional[SortSpec]): Specification for sorting the results. 
+            sorting (Optional[SortSpec]): Specification for sorting the results.
                 If provided, will be converted to XML format. Defaults to None.
             filtering (Optional[FilterSpec]): Specification for filtering the results.
                 If provided, will be converted to XML format. Defaults to None.
@@ -700,7 +700,7 @@ class OccasionService(BaseService):
 
         Args:
             *args: Variable length argument list to pass to the underlying SOAP call.
-            sorting (Optional[SortSpec], optional): Specification for sorting the results. 
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
                 If provided, it will be converted to XML format. Defaults to None.
             filtering (Optional[FilterSpec], optional): Specification for filtering the results.
                 If provided, it will be converted to XML format. Defaults to None.
@@ -804,8 +804,8 @@ class OccasionService(BaseService):
 
         Args:
             *args (Any): Variable length argument list to be passed to the underlying _call method.
-            participant_numbers (Optional[XmlArray[OccasionParticipantNumberSpec]], optional): 
-                An array of participant number specifications to be set for the occasion. 
+            participant_numbers (Optional[XmlArray[OccasionParticipantNumberSpec]], optional):
+                An array of participant number specifications to be set for the occasion.
                 If None, an empty string will be sent. Defaults to None.
             **kwargs (Any): Arbitrary keyword arguments to be passed to the underlying _call method.
 
@@ -824,13 +824,13 @@ class OccasionService(BaseService):
 
         Args:
             *args: Additional positional arguments to pass to the SOAP call.
-            occasion_quantity (Optional[XmlArray[OccasionQuantitySpec]], optional): 
-                An array of occasion quantity specifications to set. Each specification 
+            occasion_quantity (Optional[XmlArray[OccasionQuantitySpec]], optional):
+                An array of occasion quantity specifications to set. Each specification
                 contains details about the occasion and the quantity to set. Defaults to None.
             **kwargs: Additional keyword arguments to pass to the SOAP call.
 
         Returns:
-            SoapResponse: The response from the SOAP service containing the result of the 
+            SoapResponse: The response from the SOAP service containing the result of the
                 quantity update operation.
 
         Note:
