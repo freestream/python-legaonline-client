@@ -11,6 +11,8 @@ __pycache__
 .venv
 .idea/
 .DS_Store
+
+.github/
 /build/
 /dist/
 /test_clients/
