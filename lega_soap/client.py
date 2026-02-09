@@ -6,46 +6,54 @@ from typing import Optional, TYPE_CHECKING, Any
 from .auth import AuthManager, Credentials
 from .timezone import get_default_tzinfo
 from .services import (
-    CustomerService, 
-    ReservationService
+    AuthService,
+    AccountService,
+    AvailabilityService,
+    CalendarService,
+    CatalogService,
+    CommunicationService,
+    CustomerService,
+    GeoService,
+    IntegrationService,
+    JobService,
+    ObjectService,
+    OccasionService,
+    OrderService,
+    ReportService,
+    ReservationService,
+    ShippingService,
+    MiscService,
 )
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from zeep.client import Client as ZeepClient
 
 
 class Client:
-    """
-    A client for interacting with the Lega Online SOAP API.
+    """High-level client for the Lega Online Rental API."""
 
-    This client provides a high-level interface for making requests to the Lega Online
-    rental management system. It handles authentication, timezone management, and provides
-    access to various service endpoints.
-
-    Args:
-        creds (Credentials): Authentication credentials for the API.
-        wsdl_url (str, optional): URL to the WSDL definition. Defaults to the production
-            Lega Online API endpoint.
-        zeep_client (Optional[ZeepClient], optional): Pre-configured Zeep client instance.
-            If not provided, a new client will be created with appropriate settings.
-        authenticate_on_init (bool, optional): Whether to authenticate immediately upon
-            initialization. Defaults to True.
-        tzinfo (Optional[dt.tzinfo], optional): Timezone information for datetime operations.
-            If not provided, the default timezone will be used.
-
-    Attributes:
-        zeep_client (ZeepClient): The underlying Zeep SOAP client.
-        auth (AuthManager): Manager for handling authentication with the API.
-        tzinfo (dt.tzinfo): Timezone information used for datetime operations.
-        customers (CustomerService): Service interface for customer-related operations.
-
-    Example:
-        >>> from lega_soap import Client, Credentials
-        >>> creds = Credentials(username="user", password="pass")
-        >>> client = Client(creds=creds)
-        >>> # Use client.customers to access customer operations
-    """
-    __slots__ = ("zeep_client", "auth", "tzinfo", "customers", "reservations")
+    __slots__ = (
+        "zeep_client",
+        "auth",
+        "tzinfo",
+        "auth_service",
+        "accounts",
+        "availability",
+        "calendar",
+        "catalog",
+        "communication",
+        "customers",
+        "geo",
+        "integration",
+        "jobs",
+        "objects",
+        "occasions",
+        "orders",
+        "reports",
+        "reservations",
+        "shipping",
+        "misc",
+    )
 
     def __init__(
         self,
@@ -57,18 +65,37 @@ class Client:
         tzinfo: Optional[dt.tzinfo] = None,
     ) -> None:
         if zeep_client is None:
-            from zeep.client import Client as ZeepClient
-            from zeep.settings import Settings as ZeepSettings
+            from zeep.client import Client as ZeepClient  # local import
+            from zeep.settings import Settings as ZeepSettings  # local import
 
             settings = ZeepSettings(strict=False, xml_huge_tree=True)
             zeep_client = ZeepClient(wsdl=wsdl_url, settings=settings)
 
-        self.zeep_client = zeep_client
-        self.auth = AuthManager(self.zeep_client.service, creds)
+        self.zeep_client: Any = zeep_client
+        self.tzinfo: dt.tzinfo = tzinfo or get_default_tzinfo()
 
+        # Auth manager (token lifecycle)
+        self.auth: AuthManager = AuthManager(self.zeep_client.service, creds)
         if authenticate_on_init:
             self.auth.authenticate()
 
-        self.tzinfo = tzinfo or get_default_tzinfo()
-        self.customers = CustomerService(self.zeep_client.service, self.auth, self.tzinfo)
-        self.reservations = ReservationService(self.zeep_client.service, self.auth, self.tzinfo)
+        # Services that use authToken injected by BaseService
+        self.customers: CustomerService = CustomerService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.reservations: ReservationService = ReservationService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.occasions: OccasionService = OccasionService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.accounts: AccountService = AccountService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.availability: AvailabilityService = AvailabilityService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.catalog: CatalogService = CatalogService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.objects: ObjectService = ObjectService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.orders: OrderService = OrderService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.communication: CommunicationService = CommunicationService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.jobs: JobService = JobService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.geo: GeoService = GeoService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.calendar: CalendarService = CalendarService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.integration: IntegrationService = IntegrationService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.reports: ReportService = ReportService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.shipping: ShippingService = ShippingService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.misc: MiscService = MiscService(self.zeep_client.service, self.auth, self.tzinfo)
+
+        # Methods without authToken parameter (direct Zeep call)
+        self.auth_service: AuthService = AuthService(self.zeep_client.service, self.tzinfo)
