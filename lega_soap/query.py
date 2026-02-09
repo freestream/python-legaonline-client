@@ -612,6 +612,19 @@ class XmlArray(Generic[T]):
     items: Sequence[Union[XmlNode, XmlScalar]]
 
     def to_xml(self) -> str:
+        """
+        Serializes the items in the collection to an XML string.
+
+        Returns:
+            str: An XML representation of the items, wrapped in the specified wrapper tag.
+                 If the collection is empty, returns an empty string.
+
+        The method iterates over each item in `self.items`:
+            - If the item is an instance of XmlNode and its tag matches `self.item_tag`, its XML is appended directly.
+            - If the item is an XmlNode but its tag differs, it is wrapped in `self.item_tag` tags.
+            - Otherwise, the item is treated as a scalar, escaped, and wrapped in `self.item_tag` tags.
+        The resulting XML fragments are concatenated and wrapped in `self.wrapper_tag`.
+        """
         if not self.items:
             return ""
 
@@ -678,6 +691,13 @@ class JobSpec:
     description: Optional[str] = None
 
     def to_xml_node(self) -> XmlNode:
+        """
+        Converts the current job instance into an XmlNode representation.
+
+        Returns:
+            XmlNode: An XmlNode object representing the job, with attributes for JobID, OccasionID,
+            CustomerID, StartDate, EndDate, and Description.
+        """
         return XmlNode(
             "Job",
             {
@@ -709,6 +729,13 @@ class OccasionAnswerSpec:
     price: Optional[Union[Decimal, int, float, str]] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current instance into an XmlNode representing an 'OccasionAnswer'.
+
+        Returns:
+            XmlNode: An XmlNode object with the tag 'OccasionAnswer' and attributes
+                populated from the instance's occasion_id, answer_id, value, quantity, and price.
+        """
         return XmlNode(
             "OccasionAnswer",
             {
@@ -732,6 +759,13 @@ class OccasionLocationSpec:
     location_address_id: Optional[int] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current instance into an XmlNode representing an OccasionLocation.
+
+        Returns:
+            XmlNode: An XmlNode object with the tag "OccasionLocation" and attributes
+                "OccasionID", "LocationID", and "LocationAddressID" populated from the instance.
+        """
         return XmlNode(
             "OccasionLocation",
             {
@@ -756,6 +790,13 @@ class OccasionObjectAnswerSpec:
     answer_number: Optional[int] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current object instance into an XmlNode representing an "OccObjectAnswer".
+
+        Returns:
+            XmlNode: An XmlNode object with the tag "OccObjectAnswer" and attributes populated
+            from the instance's answer_id, occasion_id, object_id, answer_text, answer_time, and answer_number.
+        """
         return XmlNode(
             "OccObjectAnswer",
             {
@@ -779,6 +820,13 @@ class OccasionParticipantNumberSpec:
     occasion_id: Optional[int] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current instance into an XmlNode representing an OccasionParticipantNumber.
+
+        Returns:
+            XmlNode: An XML node with the tag "OccasionParticipantNumber" and attributes
+                "ParticipantNumber" and "OccasionID" set from the instance's properties.
+        """
         return XmlNode(
             "OccasionParticipantNumber",
             {
@@ -798,6 +846,13 @@ class OccasionQuantitySpec:
     quantity: Optional[int] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current instance into an XmlNode representing an 'OccasionQuantity' element.
+
+        Returns:
+            XmlNode: An XmlNode object with the tag 'OccasionQuantity' and attributes
+                'OccasionID' and 'Quantity' set to the instance's corresponding values.
+        """
         return XmlNode(
             "OccasionQuantity",
             {
@@ -817,6 +872,13 @@ class OccasionSeatingInfoSpec:
     seating_id: Optional[int] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current instance into an XmlNode representing occasion seating information.
+
+        Returns:
+            XmlNode: An XML node with the tag "OccasionSeatingInfo" and attributes "OccasionID" and "SeatingID"
+                populated from the instance's occasion_id and seating_id.
+        """
         return XmlNode(
             "OccasionSeatingInfo",
             {
@@ -836,6 +898,13 @@ class ReportParameterSpec:
     value: Optional[str] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current object into an XmlNode representing a report parameter.
+
+        Returns:
+            XmlNode: An XmlNode instance with the tag "ReportParameter" and attributes
+                "Name" and "Value" set to the object's name and value, respectively.
+        """
         return XmlNode(
             "ReportParameter",
             {
@@ -880,6 +949,15 @@ class OrderInfoSpec:
     delivery_phone: Optional[str] = None
 
     def to_xml_node(self) -> "XmlNode":
+        """
+        Converts the current object's order information into an XmlNode representation.
+
+        Returns:
+            XmlNode: An XmlNode instance with the tag "OrderInfo" and attributes populated
+            from the object's properties, including pickup and delivery details, reservation
+            information, goods type, message, weight, volume, package count, distance, and
+            contact information for both pickup and delivery locations.
+        """
         return XmlNode(
             "OrderInfo",
             {
