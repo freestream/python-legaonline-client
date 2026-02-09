@@ -5,7 +5,10 @@ from typing import Optional, TYPE_CHECKING, Any
 
 from .auth import AuthManager, Credentials
 from .timezone import get_default_tzinfo
-from .services import CustomerService
+from .services import (
+    CustomerService, 
+    ReservationService
+)
 
 if TYPE_CHECKING:
     from zeep.client import Client as ZeepClient
@@ -42,7 +45,7 @@ class Client:
         >>> client = Client(creds=creds)
         >>> # Use client.customers to access customer operations
     """
-    __slots__ = ("zeep_client", "auth", "tzinfo", "customers")
+    __slots__ = ("zeep_client", "auth", "tzinfo", "customers", "reservations")
 
     def __init__(
         self,
@@ -68,3 +71,4 @@ class Client:
 
         self.tzinfo = tzinfo or get_default_tzinfo()
         self.customers = CustomerService(self.zeep_client.service, self.auth, self.tzinfo)
+        self.reservations = ReservationService(self.zeep_client.service, self.auth, self.tzinfo)
