@@ -30,7 +30,42 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 class Client:
-    """High-level client for the Lega Online Rental API."""
+    """
+    Client for interacting with the LegaOnline SOAP API.
+    This class manages authentication and provides access to various service endpoints
+    (e.g., customers, reservations, orders) via the LegaOnline API. It wraps a Zeep SOAP client
+    and injects authentication tokens as needed for each service.
+    Attributes:
+        zeep_client (Any): The underlying Zeep SOAP client instance.
+        auth (AuthManager): Manages authentication and token lifecycle.
+        tzinfo (datetime.tzinfo): Timezone information used for date/time fields.
+        auth_service (AuthService): Service for authentication-related operations (no auth token required).
+        accounts (AccountService): Service for account-related operations.
+        availability (AvailabilityService): Service for checking availability.
+        calendar (CalendarService): Service for calendar-related operations.
+        catalog (CatalogService): Service for catalog-related operations.
+        communication (CommunicationService): Service for communication-related operations.
+        customers (CustomerService): Service for customer-related operations.
+        geo (GeoService): Service for geographical data operations.
+        integration (IntegrationService): Service for integration-related operations.
+        jobs (JobService): Service for job/task-related operations.
+        objects (ObjectService): Service for object/resource-related operations.
+        occasions (OccasionService): Service for occasion/event-related operations.
+        orders (OrderService): Service for order-related operations.
+        reports (ReportService): Service for reporting operations.
+        reservations (ReservationService): Service for reservation-related operations.
+        shipping (ShippingService): Service for shipping-related operations.
+        misc (MiscService): Service for miscellaneous operations.
+    Args:
+        creds (Credentials): Credentials for authenticating with the API.
+        wsdl_url (str, optional): URL to the WSDL for the SOAP API. Defaults to LegaOnline production endpoint.
+        zeep_client (Optional[ZeepClient], optional): Custom Zeep client instance. If None, a new one is created.
+        authenticate_on_init (bool, optional): Whether to authenticate immediately upon initialization. Defaults to True.
+        tzinfo (Optional[datetime.tzinfo], optional): Timezone info to use. If None, uses default timezone.
+    Raises:
+        AuthenticationError: If authentication fails during initialization (when authenticate_on_init is True).
+    """
+
 
     __slots__ = (
         "zeep_client",

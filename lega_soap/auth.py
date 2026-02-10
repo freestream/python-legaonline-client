@@ -40,11 +40,11 @@ class AuthManager:
         authenticate() -> str:
             Obtains a new authentication token from the SOAP service.
             Raises AuthError if token acquisition fails or returns empty.
-            
+
         validate() -> bool:
             Validates the current authentication token with the SOAP service.
             Returns False if no token exists or validation fails.
-            
+
         ensure_valid_token() -> str:
             Ensures a valid token exists, validating current token or
             obtaining a new one if necessary. Returns a valid token.
@@ -61,7 +61,7 @@ class AuthManager:
         ...     pass
     """
     __slots__ = ("_service", "_creds", "_token")
-    
+
     def __init__(
         self,
         zeep_service: Any,
