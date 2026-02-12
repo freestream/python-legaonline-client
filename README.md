@@ -1,4 +1,4 @@
-# lega_soap
+# LegaOnline SOAP API client for python
 
 A typed, class-based Python SOAP client for the **LegaOnline SOAP
 API**.
@@ -33,14 +33,18 @@ Dependencies:
 ``` python
 from lega_soap.client import Client
 from lega_soap.auth import Credentials
+from lega_soap.query import FilterSpec
 
 client = Client(
     creds=Credentials(user_id=123, hash="your-hash"),
     authenticate_on_init=True,
 )
 
-customer = client.customer.get_customer(customer_id=1001)
-print(customer.data)
+filters = FilterSpec.from_tuples(
+    ("CustomerID", "1001", "="),
+)
+customer = client.customer.get_customer(filtering=filters)
+print(customer)
 ```
 
 ------------------------------------------------------------------------
