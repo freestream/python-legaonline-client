@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime as dt
 from typing import Any, Optional
 
-from ..query import AnswerPriceInfo, FilterSpec, SortSpec, XmlArray
+from ..query import FilterSpec, SortSpec
 from ..types import SoapResponse
 from .base import BaseService
 
@@ -48,34 +48,26 @@ class OrderService(BaseService):
         Returns:
             SoapResponse: The SOAP response containing the calculated price information.
         """
-        return self._call("CalculatePrice", object_id, customer_id, start_date, end_date)
+        return self._call("CalculatePrice", objectID=object_id, customerID=customer_id, startDate=start_date, endDate=end_date)
 
     def calculate_prices(
         self,
-        object_id: Optional[int] = None,
-        start_date: Optional[dt.date] = None,
-        end_date: Optional[dt.date] = None,
-        answer_price_info: Optional[XmlArray[AnswerPriceInfo]] = None,
+        customer_id: Optional[int] = None,
+        customer_contact_id: Optional[int] = None,
+        price_info: Optional[str] = None,
     ) -> SoapResponse:
         """
-        Calculate prices with optional answer-based price overrides.
+        Calculate prices for a customer and contact.
 
-        answer_price_info must be an XmlArray with:
-        wrapper_tag = "AnswerPriceInfo"
-        item_tag    = "AnswerPriceInfo"
-        items       = AnswerPriceInfo entries
+        Args:
+            customer_id: The ID of the customer.
+            customer_contact_id: The ID of the customer contact.
+            price_info: XML string with price information.
 
-        Example:
-            XmlArray(
-                wrapper_tag="AnswerPriceInfo",
-                item_tag="AnswerPriceInfo",
-                items=[
-                    AnswerPriceInfo(answer_id=1, price=Decimal("99.50")),
-                    AnswerPriceInfo(answer_id=2, price=0),
-                ],
-            )
+        Returns:
+            SoapResponse: The SOAP response containing the calculated prices.
         """
-        return self._call("CalculatePrices", object_id, start_date, end_date, answer_price_info)
+        return self._call("CalculatePrices", customerID=customer_id, customerContactID=customer_contact_id, priceInfo=price_info)
 
     def get_orders(self, *args: Any, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
         """

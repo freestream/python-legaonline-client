@@ -467,48 +467,30 @@ class CatalogService(BaseService):
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetQuestionXml", sort=sort_xml, filter=filter_xml, *args, **kwargs)
 
-    def set_job_attributes(self, *args: Any, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def set_job_attributes(self, *args: Any, job_attributes: Optional[str] = None, **kwargs: Any) -> SoapResponse:
         """
-        Set job attributes with optional sorting and filtering.
-
-        This method calls the SOAP service's SetJobAttributes operation, allowing you to
-        configure job attributes with optional sorting and filtering specifications.
+        Set job attributes.
 
         Args:
             *args: Variable length argument list to pass to the SOAP call.
-            sorting (Optional[SortSpec], optional): Sorting specification for the job attributes.
-                If provided, it will be converted to XML format. Defaults to None.
-            filtering (Optional[FilterSpec], optional): Filtering specification for the job attributes.
-                If provided, it will be converted to XML format. Defaults to None.
+            job_attributes (Optional[str]): XML string containing the job attributes to set.
             **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The response object from the SOAP service call.
-
-        Example:
-            >>> sort_spec = SortSpec(field="name", order="asc")
-            >>> filter_spec = FilterSpec(criteria="active")
-            >>> response = service.set_job_attributes(sorting=sort_spec, filtering=filter_spec)
         """
-        sort_xml = sorting.to_xml() if sorting else ""
-        filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("SetJobAttributes", sort=sort_xml, filter=filter_xml, *args, **kwargs)
+        return self._call("SetJobAttributes", *args, jobAttributes=job_attributes, **kwargs)
 
-    def set_job_attributes_xml(self, *args: Any, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def set_job_attributes_xml(self, *args: Any, job_attributes: Optional[str] = None, **kwargs: Any) -> SoapResponse:
         """
-        Set job attributes using XML-based sorting and filtering specifications.
+        Set job attributes, returning XML response.
 
         Args:
             *args: Variable length argument list to pass to the SOAP call.
-            sorting: Optional SortSpec object defining the sort order for job attributes.
-                     If provided, it will be converted to XML format.
-            filtering: Optional FilterSpec object defining filters for job attributes.
-                       If provided, it will be converted to XML format.
+            job_attributes (Optional[str]): XML string containing the job attributes to set.
             **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The response from the SetJobAttributesXml SOAP operation.
         """
-        sort_xml = sorting.to_xml() if sorting else ""
-        filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("SetJobAttributesXml", sort=sort_xml, filter=filter_xml, *args, **kwargs)
+        return self._call("SetJobAttributesXml", *args, jobAttributes=job_attributes, **kwargs)

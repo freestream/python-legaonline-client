@@ -169,13 +169,12 @@ class AccountService(BaseService):
         filter_xml: str = filtering.to_xml() if filtering else ""
         return self._call("GetExternalAccountUserXml", sort=sort_xml, filter=filter_xml, **kwargs)
 
-    def set_external_account_user_password(self, user_id: Optional[int], old_password: Optional[str], new_password: Optional[str], *args: Any, **kwargs: Any) -> SoapResponse:
+    def set_external_account_user_password(self, user_id: Optional[int], new_password: Optional[str], *args: Any, **kwargs: Any) -> SoapResponse:
         """
         Set the password for an external account user.
 
         Args:
             user_id (Optional[int]): The ID of the user whose password should be changed.
-            old_password (Optional[str]): The current password of the user.
             new_password (Optional[str]): The new password to set for the user.
             *args (Any): Additional positional arguments to pass to the SOAP service call.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
@@ -183,15 +182,14 @@ class AccountService(BaseService):
         Returns:
             SoapResponse: The SOAP response object containing the result of the password change operation.
         """
-        return self._call("SetExternalAccountUserPassword", *args, **kwargs, user_id=user_id, old_password=old_password, new_password=new_password)
+        return self._call("SetExternalAccountUserPassword", *args, **kwargs, userID=user_id, newPassword=new_password)
 
-    def set_external_account_user_password_xml(self, user_id: Optional[int], old_password: Optional[str], new_password: Optional[str], *args: Any, **kwargs: Any) -> SoapResponse:
+    def set_external_account_user_password_xml(self, user_id: Optional[int], new_password: Optional[str], *args: Any, **kwargs: Any) -> SoapResponse:
         """
         Sets a new password for an external account user.
 
         Args:
             user_id (Optional[int]): The unique identifier of the external account user.
-            old_password (Optional[str]): The current password of the user.
             new_password (Optional[str]): The new password to set for the user.
             *args (Any): Additional positional arguments to pass to the SOAP service call.
             **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
@@ -199,7 +197,7 @@ class AccountService(BaseService):
         Returns:
             SoapResponse: The response from the SOAP service containing the result of the password change operation.
         """
-        return self._call("SetExternalAccountUserPasswordXml", *args, **kwargs, user_id=user_id, old_password=old_password, new_password=new_password)
+        return self._call("SetExternalAccountUserPasswordXml", *args, **kwargs, userID=user_id, newPassword=new_password)
 
     def update_external_account_user(self, user_id: Optional[int], full_name: Optional[str], user_name: Optional[str], email: Optional[str], address: Optional[str], zip_str: Optional[str], city: Optional[str], phone: Optional[str], mobile: Optional[str], *args: Any, **kwargs: Any) -> SoapResponse:
         """

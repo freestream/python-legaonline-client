@@ -50,7 +50,9 @@ class JobService(BaseService):
         Example:
             >>> job_service.get_job(job_id=123, sorting=my_sort_spec, filtering=my_filter_spec)
         """
-        return self._call("GetJob", *args, sort=sorting, filter=filtering, **kwargs)
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetJob", *args, sort=sort_xml, filter=filter_xml, **kwargs)
 
     def set_job(self, *args: Any, jobs: Optional[JobSpec] = None, **kwargs: Any) -> SoapResponse:
         """
