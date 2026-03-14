@@ -24,7 +24,6 @@ Dependencies:
 
 -   zeep
 -   requests
--   pytz (or zoneinfo if Python ≥ 3.9)
 
 ------------------------------------------------------------------------
 
@@ -41,9 +40,9 @@ client = Client(
 )
 
 filters = FilterSpec.from_tuples(
-    ("CustomerID", "1001", "="),
+    ("CustomerID", "=", "1001"),
 )
-customer = client.customer.get_customer(filtering=filters)
+customer = client.customers.get_customer(filtering=filters)
 print(customer)
 ```
 
@@ -64,9 +63,9 @@ Each domain has its own service class.
 Example:
 
 ``` python
-client.customer.get_customer(...)
-client.order.calculate_prices(...)
-client.occasion.get_occasion(...)
+client.customers.get_customer(...)
+client.orders.calculate_prices(...)
+client.occasions.get_occasion(...)
 ```
 
 All SOAP calls flow through a shared `_call()` method which:
@@ -89,7 +88,7 @@ Client(authenticate_on_init=True)
 Or manually:
 
 ``` python
-client.authenticate()
+client.auth.authenticate()
 ```
 
 The token is stored centrally and injected into every SOAP call.
@@ -104,8 +103,8 @@ The token is stored centrally and injected into every SOAP call.
 from lega_soap.query import FilterSpec
 
 filters = FilterSpec.from_tuples(
-    ("Status", "active", "="),
-    ("OccasionID", "12,13", "in"),
+    ("Status", "=", "active"),
+    ("OccasionID", "in", "12,13"),
 )
 
 xml = filters.to_xml()
@@ -151,52 +150,24 @@ Some SOAP methods require nested XML structures.
 
 Use `XmlNode` and `XmlArray`.
 
-### Example: CalculatePrices
+### Example: SetOccasionSeating
 
 ``` python
-from decimal import Decimal
 from lega_soap.query import XmlArray, XmlNode
 
-answer_prices = XmlArray(
-    wrapper_tag="AnswerPriceInfo",
-    item_tag="AnswerPriceInfo",
+seating = XmlArray(
+    wrapper_tag="Seating",
+    item_tag="Seat",
     items=[
-        XmlNode("AnswerPriceInfo", {
-            "AnswerID": 1,
-            "Price": Decimal("99.50"),
-        }),
-        XmlNode("AnswerPriceInfo", {
-            "AnswerID": 2,
-            "Price": Decimal("0"),
-        }),
+        XmlNode("Seat", {"SeatID": 1, "RowID": 1}),
+        XmlNode("Seat", {"SeatID": 2, "RowID": 1}),
     ],
 )
 
-response = client.order.calculate_prices(
-    object_id=10,
-    answer_price_info=answer_prices,
-)
-```
-
-------------------------------------------------------------------------
-
-## Strongly Typed Variant (Optional)
-
-You may also use structured helper models:
-
-``` python
-from lega_soap.query import AnswerPriceInfo
-from lega_soap.query import XmlArray
-
-items = [
-    AnswerPriceInfo(answer_id=1, price=100),
-    AnswerPriceInfo(answer_id=2, price=0),
-]
-
-xml_array = XmlArray(
-    wrapper_tag="AnswerPriceInfo",
-    item_tag="AnswerPriceInfo",
-    items=[item.to_xml_node() for item in items],
+client.occasions.set_occasion_seating(
+    occasion_id=42,
+    room_id=5,
+    seating_xml=seating.to_xml(),
 )
 ```
 
