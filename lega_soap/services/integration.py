@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Optional
 
 from ..query import OrderInfoSpec
 from ..types import SoapResponse
@@ -8,52 +8,44 @@ from .base import BaseService
 
 class IntegrationService(BaseService):
     """
-    IntegrationService provides methods for interacting with the integration SOAP service, specifically for creating Miljobud orders.
+    IntegrationService provides methods for interacting with the integration SOAP service,
+    specifically for creating Miljobud orders.
 
     Methods:
-        integration_create_miljobud_order(*args, fleet_101_auth_token, order_info, **kwargs):
-            - *args: Additional positional arguments for the SOAP call.
-            - fleet_101_auth_token (Optional[str]): Authentication token for Fleet101.
-            - order_info (Optional[OrderInfoSpec]): Order information as an OrderInfoSpec object.
-            - **kwargs: Additional keyword arguments for the SOAP call.
+        integration_create_miljobud_order(fleet_101_auth_token, order_info):
+            Creates a Miljobud order via the integration service.
 
-        integration_create_miljobud_order_xml(*args, fleet_101_auth_token, **kwargs):
-            Creates a Miljobud order XML via the integration service by calling the 'IntegrationCreateMiljobudOrderXml' SOAP operation.
-            - *args: Positional arguments for the SOAP call.
-            - fleet_101_auth_token (Optional[str]): Authentication token for Fleet101.
-            - **kwargs: Additional keyword arguments for the SOAP call.
+        integration_create_miljobud_order_xml(fleet_101_auth_token, order_info):
+            Creates a Miljobud order XML via the integration service.
     """
     __slots__ = ()
 
-    def integration_create_miljobud_order(self, *args: Any, fleet_101_auth_token: Optional[str], order_info: Optional[OrderInfoSpec], **kwargs: Any) -> SoapResponse:
+    def integration_create_miljobud_order(self, fleet_101_auth_token: Optional[str] = None, order_info: Optional[OrderInfoSpec] = None) -> SoapResponse:
         """
         Creates a Miljobud order by calling the 'IntegrationCreateMiljobudOrder' SOAP method.
 
         Args:
-            *args (Any): Additional positional arguments to pass to the SOAP call.
-            fleet_101_auth_token (Optional[str]): Authentication token for Fleet101.
-            order_info (Optional[OrderInfoSpec]): Order information to be sent, as an OrderInfoSpec object.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
+            fleet_101_auth_token (Optional[str], optional): Authentication token for Fleet101. Defaults to None.
+            order_info (Optional[OrderInfoSpec], optional): Order information to be sent, as an OrderInfoSpec object. Defaults to None.
 
         Returns:
             SoapResponse: The response from the SOAP service.
-
         """
         order_info_xml = order_info.to_xml() if order_info else ""
-        return self._call("IntegrationCreateMiljobudOrder", *args, fleet101AuthToken=fleet_101_auth_token, orderInfo=order_info_xml, **kwargs)
+        return self._call("IntegrationCreateMiljobudOrder", fleet101AuthToken=fleet_101_auth_token, orderInfo=order_info_xml)
 
-    def integration_create_miljobud_order_xml(self, *args: Any, fleet_101_auth_token: Optional[str], **kwargs: Any) -> SoapResponse:
+    def integration_create_miljobud_order_xml(self, fleet_101_auth_token: Optional[str] = None, order_info: Optional[OrderInfoSpec] = None) -> SoapResponse:
         """
         Creates a Miljobud order XML via the integration service.
 
-        This method calls the "IntegrationCreateMiljobudOrderXml" SOAP operation, passing the provided arguments and authentication token.
+        This method calls the "IntegrationCreateMiljobudOrderXml" SOAP operation.
 
         Args:
-            *args (Any): Positional arguments to pass to the SOAP call.
-            fleet_101_auth_token (Optional[str]): Authentication token for Fleet101.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
+            fleet_101_auth_token (Optional[str], optional): Authentication token for Fleet101. Defaults to None.
+            order_info (Optional[OrderInfoSpec], optional): Order information to be sent, as an OrderInfoSpec object. Defaults to None.
 
         Returns:
             SoapResponse: The response from the SOAP service.
         """
-        return self._call("IntegrationCreateMiljobudOrderXml", *args, fleet101AuthToken=fleet_101_auth_token, **kwargs)
+        order_info_xml = order_info.to_xml() if order_info else ""
+        return self._call("IntegrationCreateMiljobudOrderXml", fleet101AuthToken=fleet_101_auth_token, orderInfo=order_info_xml)

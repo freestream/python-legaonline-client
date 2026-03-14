@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Optional
 
 from ..query import FilterSpec, SortSpec, StrListSpec
 from ..types import SoapResponse
@@ -39,7 +39,7 @@ class CommunicationService(BaseService):
     """
     __slots__ = ()
 
-    def get_document_sent_list(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def get_document_sent_list(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieve a list of sent documents from the SOAP service.
 
@@ -47,11 +47,10 @@ class CommunicationService(BaseService):
         and filtering parameters.
 
         Args:
-            sorting (Optional[SortSpec]): Specification for sorting the results. If provided,
-                it will be converted to XML format. Defaults to None.
-            filtering (Optional[FilterSpec]): Specification for filtering the results. If provided,
-                it will be converted to XML format. Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the underlying SOAP call.
+            sorting (Optional[SortSpec], optional): Specification for sorting the results.
+                If provided, it will be converted to XML format. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
+                If provided, it will be converted to XML format. Defaults to None.
 
         Returns:
             SoapResponse: The response from the SOAP service containing the list of sent documents.
@@ -63,18 +62,17 @@ class CommunicationService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("GetDocumentSentList", sort=sort_xml, filter=filter_xml, **kwargs)
+        return self._call("GetDocumentSentList", sort=sort_xml, filter=filter_xml)
 
-    def get_document_sent_list_xml(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def get_document_sent_list_xml(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieve a list of sent documents in XML format with optional sorting and filtering.
 
         Args:
-            sorting (Optional[SortSpec]): Specification for sorting the document list.
-                If provided, will be converted to XML format for the SOAP request.
-            filtering (Optional[FilterSpec]): Specification for filtering the document list.
-                If provided, will be converted to XML format for the SOAP request.
-            **kwargs (Any): Additional keyword arguments to pass to the underlying SOAP call.
+            sorting (Optional[SortSpec], optional): Specification for sorting the document list.
+                If provided, will be converted to XML format for the SOAP request. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Specification for filtering the document list.
+                If provided, will be converted to XML format for the SOAP request. Defaults to None.
 
         Returns:
             SoapResponse: The response from the GetDocumentSentListXml SOAP operation,
@@ -82,9 +80,9 @@ class CommunicationService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("GetDocumentSentListXml", sort=sort_xml, filter=filter_xml, **kwargs)
+        return self._call("GetDocumentSentListXml", sort=sort_xml, filter=filter_xml)
 
-    def send_confirmation_email(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, **kwargs: Any) -> SoapResponse:
+    def send_confirmation_email(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None) -> SoapResponse:
         """
         Send a confirmation email for a reservation.
 
@@ -92,15 +90,14 @@ class CommunicationService(BaseService):
             reservation_id (Optional[int], optional): The ID of the reservation to send confirmation for. Defaults to None.
             from_address (Optional[str], optional): The sender's email address. Defaults to None.
             to_addresses (Optional[StrListSpec], optional): List of recipient email addresses. Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The SOAP response object containing the result of the email sending operation.
         """
         to_addresses_xml = to_addresses.to_xml() if to_addresses else ""
-        return self._call("SendConfirmationEmail", reservationID=reservation_id, toAddresses=to_addresses_xml, **{"from": from_address, **kwargs})
+        return self._call("SendConfirmationEmail", reservationID=reservation_id, toAddresses=to_addresses_xml, **{"from": from_address})
 
-    def send_confirmation_email_and_copy(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, cc_address: Optional[str] = None, bcc_address: Optional[str] = None, **kwargs: Any) -> SoapResponse:
+    def send_confirmation_email_and_copy(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, cc: Optional[str] = None, bcc: Optional[str] = None) -> SoapResponse:
         """
         Send a confirmation email with optional CC and BCC recipients.
 
@@ -113,19 +110,17 @@ class CommunicationService(BaseService):
             from_address (Optional[str], optional): The sender's email address. Defaults to None.
             to_addresses (Optional[StrListSpec], optional): A StrListSpec object containing
                 the list of recipient email addresses. Defaults to None.
-            cc_address (Optional[str], optional): The CC (carbon copy) email address. Defaults to None.
-            bcc_address (Optional[str], optional): The BCC (blind carbon copy) email address.
-                Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP service call.
+            cc (Optional[str], optional): The CC (carbon copy) email address. Defaults to None.
+            bcc (Optional[str], optional): The BCC (blind carbon copy) email address. Defaults to None.
 
         Returns:
             SoapResponse: The response from the SOAP service call containing the result
                 of the email send operation.
         """
         to_addresses_xml = to_addresses.to_xml() if to_addresses else ""
-        return self._call("SendConfirmationEmailAndCopy", reservationID=reservation_id, toAddresses=to_addresses_xml, cc=cc_address, bcc=bcc_address, **{"from": from_address, **kwargs})
+        return self._call("SendConfirmationEmailAndCopy", reservationID=reservation_id, toAddresses=to_addresses_xml, cc=cc, bcc=bcc, **{"from": from_address})
 
-    def send_confirmation_email_doc(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, confirmation_email_id: Optional[int] = None, **kwargs: Any) -> SoapResponse:
+    def send_confirmation_email_doc(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, confirmation_email_id: Optional[int] = None) -> SoapResponse:
         """
         Send a confirmation email document for a reservation.
 
@@ -134,15 +129,14 @@ class CommunicationService(BaseService):
             from_address (Optional[str], optional): The email address to send from. Defaults to None.
             to_addresses (Optional[StrListSpec], optional): The recipient email addresses. Defaults to None.
             confirmation_email_id (Optional[int], optional): The ID of the confirmation email template. Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The SOAP response object containing the result of the email send operation.
         """
         to_addresses_xml = to_addresses.to_xml() if to_addresses else ""
-        return self._call("SendConfirmationEmailDoc", reservationID=reservation_id, toAddresses=to_addresses_xml, confirmationEmailID=confirmation_email_id, **{"from": from_address, **kwargs})
+        return self._call("SendConfirmationEmailDoc", reservationID=reservation_id, toAddresses=to_addresses_xml, confirmationEmailID=confirmation_email_id, **{"from": from_address})
 
-    def send_confirmation_email_doc_v2(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, document_id: Optional[int] = None, **kwargs: Any) -> SoapResponse:
+    def send_confirmation_email_doc_v2(self, reservation_id: Optional[int] = None, from_address: Optional[str] = None, to_addresses: Optional[StrListSpec] = None, document_id: Optional[int] = None) -> SoapResponse:
         """
         Send a confirmation email with a document attachment.
 
@@ -157,7 +151,6 @@ class CommunicationService(BaseService):
                 Must be a StrListSpec object that can be converted to XML. Defaults to None.
             document_id (Optional[int], optional): The ID of the document to attach to the email.
                 Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The response from the SOAP service containing the result of the
@@ -168,9 +161,9 @@ class CommunicationService(BaseService):
             to avoid conflicts with Python's reserved 'from' keyword.
         """
         to_addresses_xml = to_addresses.to_xml() if to_addresses else ""
-        return self._call("SendConfirmationEmailDocV2", reservationID=reservation_id, toAddresses=to_addresses_xml, documentID=document_id, **{"from": from_address, **kwargs})
+        return self._call("SendConfirmationEmailDocV2", reservationID=reservation_id, toAddresses=to_addresses_xml, documentID=document_id, **{"from": from_address})
 
-    def send_user_password(self, username: Optional[str] = None, from_email: Optional[str] = None, mail_subject: Optional[str] = None, mail_text: Optional[str] = None, password_text: Optional[str] = None, **kwargs: Any) -> SoapResponse:
+    def send_user_password(self, username: Optional[str] = None, from_email: Optional[str] = None, mail_subject: Optional[str] = None, mail_text: Optional[str] = None, password_text: Optional[str] = None) -> SoapResponse:
         """
         Send a user password via email through the SOAP service.
 
@@ -188,9 +181,8 @@ class CommunicationService(BaseService):
                 Defaults to None.
             password_text (Optional[str], optional): Additional text to include with the password.
                 Defaults to None.
-            **kwargs (Any): Additional keyword arguments to pass to the SOAP call.
 
         Returns:
             SoapResponse: The response from the SOAP service containing the result of the operation.
         """
-        return self._call("SendUserPassword", username=username, fromEmail=from_email, mailSubject=mail_subject, mailText=mail_text, passwordText=password_text, **kwargs)
+        return self._call("SendUserPassword", username=username, fromEmail=from_email, mailSubject=mail_subject, mailText=mail_text, passwordText=password_text)

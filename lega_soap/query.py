@@ -457,6 +457,12 @@ class IntListSpec:
             return f"<{wrap}>{inner}</{wrap}>"
         return inner
 
+    def to_zeep(self) -> dict | None:
+        """Return a zeep-compatible dict for ArrayOfInt SOAP parameters, or None if empty."""
+        if self.is_empty():
+            return None
+        return {"int": list(self.values)}
+
 
 @dataclass(frozen=True)
 class StrListSpec:

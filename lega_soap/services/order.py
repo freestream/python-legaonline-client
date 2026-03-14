@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Any, Optional
+from typing import Optional
 
 from ..query import FilterSpec, SortSpec
 from ..types import SoapResponse
@@ -60,16 +60,16 @@ class OrderService(BaseService):
         Calculate prices for a customer and contact.
 
         Args:
-            customer_id: The ID of the customer.
-            customer_contact_id: The ID of the customer contact.
-            price_info: XML string with price information.
+            customer_id (Optional[int], optional): The ID of the customer. Defaults to None.
+            customer_contact_id (Optional[int], optional): The ID of the customer contact. Defaults to None.
+            price_info (Optional[str], optional): XML string with price information. Defaults to None.
 
         Returns:
             SoapResponse: The SOAP response containing the calculated prices.
         """
         return self._call("CalculatePrices", customerID=customer_id, customerContactID=customer_contact_id, priceInfo=price_info)
 
-    def get_orders(self, *args: Any, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def get_orders(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieve orders from the SOAP service with optional sorting and filtering.
 
@@ -78,49 +78,37 @@ class OrderService(BaseService):
         before being passed to the SOAP service.
 
         Args:
-            *args: Variable length argument list passed to the underlying SOAP call.
-            sorting: Optional sorting specification that defines how orders should be sorted.
-                     If provided, it will be converted to XML format using its to_xml() method.
-            filtering: Optional filtering specification that defines which orders to retrieve.
-                       If provided, it will be converted to XML format using its to_xml() method.
-            **kwargs: Arbitrary keyword arguments passed to the underlying SOAP call.
+            sorting (Optional[SortSpec], optional): Sorting specification that defines how orders should be sorted.
+                If provided, it will be converted to XML format using its to_xml() method. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Filtering specification that defines which orders to retrieve.
+                If provided, it will be converted to XML format using its to_xml() method. Defaults to None.
 
         Returns:
             SoapResponse: The response object containing the retrieved orders and metadata
                           from the SOAP service.
-
-        Example:
-            >>> service = OrderService()
-            >>> response = service.get_orders(sorting=sort_spec, filtering=filter_spec)
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("GetOrders", sort=sort_xml, filter=filter_xml, *args, **kwargs)
+        return self._call("GetOrders", sort=sort_xml, filter=filter_xml)
 
-    def get_orders_xml(self, *args: Any, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None, **kwargs: Any) -> SoapResponse:
+    def get_orders_xml(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieve orders in XML format from the SOAP service.
 
         Args:
-            *args: Variable length argument list to pass to the SOAP call.
-            sorting: Optional sorting specification to apply to the orders query.
-                If provided, will be converted to XML format.
-            filtering: Optional filtering specification to apply to the orders query.
-                If provided, will be converted to XML format.
-            **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
+            sorting (Optional[SortSpec], optional): Sorting specification to apply to the orders query.
+                If provided, will be converted to XML format. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Filtering specification to apply to the orders query.
+                If provided, will be converted to XML format. Defaults to None.
 
         Returns:
             SoapResponse: The response from the SOAP service containing orders in XML format.
-
-        Example:
-            >>> service = OrderService()
-            >>> response = service.get_orders_xml(sorting=my_sort_spec, filtering=my_filter_spec)
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("GetOrdersXml", sort=sort_xml, filter=filter_xml, *args, **kwargs)
+        return self._call("GetOrdersXml", sort=sort_xml, filter=filter_xml)
 
-    def set_valid_payment(self, *args: Any, reservation_id: Optional[int] = None, **kwargs: Any) -> SoapResponse:
+    def set_valid_payment(self, reservation_id: Optional[int] = None) -> SoapResponse:
         """
         Set a payment as valid for a reservation.
 
@@ -128,17 +116,11 @@ class OrderService(BaseService):
         a payment as valid for the specified reservation.
 
         Args:
-            *args: Variable length argument list to pass to the SOAP call.
-            reservation_id: The ID of the reservation to set valid payment for.
-                If None, the reservation_id must be provided in kwargs.
-            **kwargs: Arbitrary keyword arguments to pass to the SOAP call.
-                Can include reservationID as an alternative to reservation_id parameter.
+            reservation_id (Optional[int], optional): The ID of the reservation to set valid payment for.
+                Defaults to None.
 
         Returns:
             SoapResponse: The response object from the SOAP service call containing
                 the result of the SetValidPayment operation.
-
-        Raises:
-            Any exceptions raised by the underlying SOAP service call.
         """
-        return self._call("SetValidPayment", *args, reservationID=reservation_id, **kwargs)
+        return self._call("SetValidPayment", reservationID=reservation_id)
