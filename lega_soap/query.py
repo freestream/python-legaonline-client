@@ -238,9 +238,9 @@ class FilterSpec:
 
         Args:
             *filters: Variable length argument list of tuples, where each tuple contains:
-                - f (str): The field name to filter on
-                - v (str): The value to compare against
-                - c (str): The comparison operator/condition
+                - field (str): The field name to filter on
+                - condition (str): The comparison operator (e.g. "=", "!=", ">", "in")
+                - value (str): The value to compare against
 
         Returns:
             FilterSpec: A new FilterSpec instance containing FilterClause objects
@@ -248,11 +248,11 @@ class FilterSpec:
 
         Example:
             >>> FilterSpec.from_tuples(
-            ...     ("name", "John", "equals"),
-            ...     ("age", "30", "greater_than")
+            ...     ("name", "=", "John"),
+            ...     ("age", ">", "30")
             ... )
         """
-        return FilterSpec(tuple(FilterClause(f, v, c) for f, v, c in filters))
+        return FilterSpec(tuple(FilterClause(field=f, value=v, condition=c) for f, c, v in filters))
 
     def is_empty(self) -> bool:
         """
