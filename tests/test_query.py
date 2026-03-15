@@ -10,7 +10,7 @@ def test_filter_clause_normalizes_conditions() -> None:
 
 
 def test_filter_spec_to_xml() -> None:
-    spec = FilterSpec.from_tuples(("Status", "active", "eq"))
+    spec = FilterSpec.from_tuples(("Status", "eq", "active"))
     xml = spec.to_xml()
     assert xml.startswith("<Filtering>")
     assert "<FilterName>Status</FilterName>" in xml
