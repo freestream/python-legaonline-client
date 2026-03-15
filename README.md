@@ -52,11 +52,22 @@ print(customer)
 
     Client
      ├── auth
-     ├── customer
-     ├── order
-     ├── occasion
      ├── account
-     └── ...
+     ├── availability
+     ├── calendar
+     ├── catalog
+     ├── communication
+     ├── customers
+     ├── geo
+     ├── integration
+     ├── jobs
+     ├── misc
+     ├── objects
+     ├── occasions
+     ├── orders
+     ├── report
+     ├── reservations
+     └── shipping
 
 Each domain has its own service class.
 
@@ -125,50 +136,42 @@ xml = sorting.to_xml()
 
 ------------------------------------------------------------------------
 
-## Integer List XML
+## Integer Lists
 
-Used for operations like `DeleteCustomerContactAttribute`.
+Used for operations that take a list of IDs, such as `cancel_occasion` or `delete_customer_contact`.
 
 ``` python
 from lega_soap.query import IntListSpec
 
 ids = IntListSpec.from_list([10, 11, 12])
-xml = ids.to_xml()
+
+client.occasions.cancel_occasion(occasion_ids=ids)
 ```
 
-Produces:
-
-``` xml
-<int>10</int><int>11</int><int>12</int>
-```
+Internally, `.to_zeep()` converts the list to the `{"int": [...]}` format that zeep expects for `ArrayOfInt` SOAP parameters.
 
 ------------------------------------------------------------------------
 
 ## Dynamic XML Builder
 
-Some SOAP methods require nested XML structures.
+Some SOAP methods accept XML string parameters (e.g. `set_job_attributes`, `update_external_account_user`).
 
-Use `XmlNode` and `XmlArray`.
+Use `XmlNode` and `XmlArray` to build these strings.
 
-### Example: SetOccasionSeating
+### Example: SetJobAttributes
 
 ``` python
 from lega_soap.query import XmlArray, XmlNode
 
-seating = XmlArray(
-    wrapper_tag="Seating",
-    item_tag="Seat",
+attrs = XmlArray(
+    wrapper_tag="JobAttributes",
+    item_tag="JobAttribute",
     items=[
-        XmlNode("Seat", {"SeatID": 1, "RowID": 1}),
-        XmlNode("Seat", {"SeatID": 2, "RowID": 1}),
+        XmlNode("JobAttribute", {"AttributeID": 1, "Value": "foo"}),
     ],
 )
 
-client.occasions.set_occasion_seating(
-    occasion_id=42,
-    room_id=5,
-    seating_xml=seating.to_xml(),
-)
+client.jobs.set_job_attributes(job_attribute=attrs.to_xml())
 ```
 
 ------------------------------------------------------------------------
