@@ -724,7 +724,7 @@ class ReservationService(BaseService):
             "AnswerText": answer_text,
             "ReservationID": reservation_id,
         }.items() if v is not None}
-        return self._call("SetReservationAnswer", reservationAnswerList=[record])
+        return self._call("SetReservationAnswer", reservationAnswerList={"ReservationAnswer": [record]})
 
     def set_reservation_answer_v2(
         self,
@@ -760,7 +760,7 @@ class ReservationService(BaseService):
             "AnswerText": answer_text,
             "ReservationID": reservation_id,
         }.items() if v is not None}
-        return self._call("SetReservationAnswerV2", reservationAnswerList=[record])
+        return self._call("SetReservationAnswerV2", reservationAnswerList={"ReservationAnswerV2": [record]})
 
     def set_reservation_pickup_address(self, reservation_id: Optional[int] = None, customer_shipping_address_lnk_id: Optional[int] = None) -> SoapResponse:
         """

@@ -225,6 +225,7 @@ class CustomerService(BaseService):
         """
         sort_xml = sorting.to_xml() if sorting else ""
         filter_xml = filtering.to_xml() if filtering else ""
+
         return self._call(
             "GetCustomerContactV2",
             sort=sort_xml,
@@ -742,7 +743,7 @@ class CustomerService(BaseService):
             "VatFree": vat_free,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomer", customer=[record])
+        return self._call("SetCustomer", customer={"Customer": [record]})
 
     def set_customer_v2(
         self,
@@ -862,7 +863,7 @@ class CustomerService(BaseService):
             "VatFree": vat_free,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerV2", customer=[record])
+        return self._call("SetCustomerV2", customer={"CustomerV2": [record]})
 
     def set_customer_v3(
         self,
@@ -985,7 +986,7 @@ class CustomerService(BaseService):
             "VatFree": vat_free,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerV3", customer=[record])
+        return self._call("SetCustomerV3", customer={"CustomerV3": [record]})
 
     def set_customer_v4(
         self,
@@ -1111,7 +1112,7 @@ class CustomerService(BaseService):
             "VatFree": vat_free,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerV4", customer=[record])
+        return self._call("SetCustomerV4", customer={"CustomerV4": [record]})
 
     def set_customer_v5(
         self,
@@ -1240,7 +1241,7 @@ class CustomerService(BaseService):
             "VatFree": vat_free,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerV5", customer=[record])
+        return self._call("SetCustomerV5", customer={"CustomerV5": [record]})
 
     def set_customer_xml(self, customer: Optional[str] = None) -> SoapResponse:
         """
@@ -1328,7 +1329,7 @@ class CustomerService(BaseService):
             "CanLogin": can_login,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerContact", customerContact=[record])
+        return self._call("SetCustomerContact", customerContact={"CustomerContact": [record]})
 
     def set_customer_contact_v2(
         self,
@@ -1413,7 +1414,7 @@ class CustomerService(BaseService):
             "CanLogin": can_login,
             "Attribute": attribute,
         }.items() if v is not None}
-        return self._call("SetCustomerContactV2", customerContact=[record])
+        return self._call("SetCustomerContactV2", customerContact={"CustomerContactV2": [record]})
 
     def set_customer_contact_v2_xml(self, customer_contact: Optional[str] = None) -> SoapResponse:
         """
@@ -1491,7 +1492,7 @@ class CustomerService(BaseService):
             "AttributeValue": attribute_value,
             "AttributeAlternative": attribute_alternative,
         }.items() if v is not None}
-        return self._call("SetCustomerContactAttributes", customerContactAttribute=[record])
+        return self._call("SetCustomerContactAttributes", customerContactAttribute={"CustomerContactAttribute": [record]})
 
     def set_customer_contact_attributes_xml(self, customer_contact_attribute: Optional[str] = None) -> SoapResponse:
         """
@@ -1545,7 +1546,7 @@ class CustomerService(BaseService):
             "City": city,
             "ShippingNotes": shipping_notes,
         }.items() if v is not None}
-        return self._call("SetCustomerShipping", customerShippingList=[record])
+        return self._call("SetCustomerShipping", customerShippingList={"CustomerShipping": [record]})
 
     def set_customer_shipping_and_pickup(
         self,
@@ -1584,7 +1585,7 @@ class CustomerService(BaseService):
             "City": city,
             "ShippingNotes": shipping_notes,
         }.items() if v is not None}
-        return self._call("SetCustomerShippingAndPickup", customerShippingList=[record])
+        return self._call("SetCustomerShippingAndPickup", customerShippingList={"CustomerShipping": [record]})
 
     def set_master_customer_id(
         self,

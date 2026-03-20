@@ -96,7 +96,7 @@ class OccasionService(BaseService):
             "ObjectID": object_id,
             "Quantity": quantity,
         }.items() if v is not None}
-        return self._call("AddOccasionAccessory", occasionAccessory=[record])
+        return self._call("AddOccasionAccessory", occasionAccessory={"OccasionAccessory": [record]})
 
     def cancel_occasion(self, occasion_ids: Optional[IntListSpec] = None) -> SoapResponse:
         """
@@ -564,7 +564,7 @@ class OccasionService(BaseService):
             "AnswerTime": answer_time,
             "AnswerNumber": answer_number,
         }.items() if v is not None}
-        return self._call("SetOccasionAnswer", occasionAnswer=[record])
+        return self._call("SetOccasionAnswer", occasionAnswer={"OccAnswer": [record]})
 
     def set_occasion_location(
         self,
@@ -589,7 +589,7 @@ class OccasionService(BaseService):
             "LocationID": location_id,
             "LocationAddressID": location_address_id,
         }.items() if v is not None}
-        return self._call("SetOccasionLocation", occasionLocation=[record])
+        return self._call("SetOccasionLocation", occasionLocation={"OccasionLocation": [record]})
 
     def set_occasion_object_answer(
         self,
@@ -622,7 +622,7 @@ class OccasionService(BaseService):
             "AnswerTime": answer_time,
             "AnswerNumber": answer_number,
         }.items() if v is not None}
-        return self._call("SetOccasionObjectAnswer", occasionObjectAnswer=[record])
+        return self._call("SetOccasionObjectAnswer", occasionObjectAnswer={"OccObjectAnswer": [record]})
 
     def set_occasion_participant_number(
         self,
@@ -643,7 +643,7 @@ class OccasionService(BaseService):
             "ParticipantNumber": participant_number,
             "OccasionID": occasion_id,
         }.items() if v is not None}
-        return self._call("SetOccasionParticipantNumber", participantNumbers=[record])
+        return self._call("SetOccasionParticipantNumber", participantNumbers={"OccasionParticipantNumber": [record]})
 
     def set_occasion_quantity(
         self,
@@ -665,7 +665,7 @@ class OccasionService(BaseService):
             "OccasionID": occasion_id,
             "Quantity": quantity,
         }.items() if v is not None}
-        return self._call("SetOccasionQuantity", occasionQuantity=[record])
+        return self._call("SetOccasionQuantity", occasionQuantity={"OccasionQuantity": [record]})
 
     def set_occasion_seating(
         self,
@@ -686,7 +686,7 @@ class OccasionService(BaseService):
             "OccasionID": occasion_id,
             "SeatingID": seating_id,
         }.items() if v is not None}
-        return self._call("SetOccasionSeating", seatingInfo=[record])
+        return self._call("SetOccasionSeating", seatingInfo={"OccasionSeatingInfo": [record]})
 
     def update_occasion_dates(self, reservation_id: Optional[int] = None, occasion_id: Optional[int] = None, start_date: Optional[dt.date] = None, end_date: Optional[dt.date] = None) -> SoapResponse:
         """

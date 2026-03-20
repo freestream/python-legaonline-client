@@ -98,7 +98,7 @@ class JobService(BaseService):
             "PO_Number": po_number,
             "PriceCodeGroupID": price_code_group_id,
         }.items() if v is not None}
-        return self._call("SetJob", jobs=[record])
+        return self._call("SetJob", jobs={"Job": [record]})
 
     def add_reservation_to_job(self, reservation_id: Optional[int] = None, job_id: Optional[int] = None) -> SoapResponse:
         """
