@@ -15,6 +15,10 @@ from .report import ReportService
 from .reservation import ReservationService
 from .shipping import ShippingService
 from .misc import MiscService
+from .financial_account_setting import FinancialAccountSettingService
+from .financial_customer import FinancialCustomerService
+from .financial_invoice import FinancialInvoiceService
+from .financial_payment import FinancialPaymentService
 
 __all__ = [
     "AuthService",
@@ -34,4 +38,8 @@ __all__ = [
     "ReservationService",
     "ShippingService",
     "MiscService",
+    "FinancialAccountSettingService",
+    "FinancialCustomerService",
+    "FinancialInvoiceService",
+    "FinancialPaymentService",
 ]
