@@ -562,6 +562,50 @@ class CustomerService(BaseService):
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetCustomerV5Xml", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes)
 
+    def get_customer_v6(
+        self,
+        sorting: Optional[SortSpec] = None,
+        filtering: Optional[FilterSpec] = None,
+        include_attributes: bool = False,
+    ) -> SoapResponse:
+        """
+        Retrieve customer data using the GetCustomerV6 SOAP method.
+
+        Args:
+            sorting (Optional[SortSpec], optional): Specification for sorting the results. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results. Defaults to None.
+            include_attributes (bool, optional): Whether to include customer attributes in the response.
+                Defaults to False.
+
+        Returns:
+            SoapResponse: The response from the SOAP service containing an array of CustomerV6 objects.
+        """
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetCustomerV6", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes)
+
+    def get_customer_v6_xml(
+        self,
+        sorting: Optional[SortSpec] = None,
+        filtering: Optional[FilterSpec] = None,
+        include_attributes: bool = False,
+    ) -> SoapResponse:
+        """
+        Retrieve customer data in XML format using the GetCustomerV6Xml SOAP method.
+
+        Args:
+            sorting (Optional[SortSpec], optional): Specification for sorting the results. Defaults to None.
+            filtering (Optional[FilterSpec], optional): Specification for filtering the results. Defaults to None.
+            include_attributes (bool, optional): Whether to include customer attributes in the response.
+                Defaults to False.
+
+        Returns:
+            SoapResponse: The response object containing the customer data in XML format.
+        """
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetCustomerV6Xml", sort=sort_xml, filter=filter_xml, includeAttributes=include_attributes)
+
     def get_customer_xml(
         self,
         sorting: Optional[SortSpec] = None,

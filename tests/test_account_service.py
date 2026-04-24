@@ -12,3 +12,13 @@ def test_account_get_account_calls_GetAccount(zeep_service, tzinfo) -> None:
     name, args, _ = zeep_service.calls[0]
     assert name == "GetAccount"
     assert args[0] == "TOKEN123"
+
+
+def test_account_send_user_password_calls_SendUserPassword(zeep_service, tzinfo) -> None:
+    svc = AccountService(zeep_service, FakeAuth(), tzinfo)
+    svc.send_user_password()
+
+    assert zeep_service.calls, "Expected at least one SOAP call"
+    name, args, _ = zeep_service.calls[0]
+    assert name == "SendUserPassword"
+    assert args[0] == "TOKEN123"

@@ -168,6 +168,36 @@ class AccountService(BaseService):
         """
         return self._call("UpdateExternalAccountUser", users=users)
 
+    def send_user_password(
+        self,
+        username: Optional[str] = None,
+        from_email: Optional[str] = None,
+        mail_subject: Optional[str] = None,
+        mail_text: Optional[str] = None,
+        password_text: Optional[str] = None,
+    ) -> SoapResponse:
+        """
+        Send a password email to a system user.
+
+        Args:
+            username (Optional[str], optional): The username of the recipient. Defaults to None.
+            from_email (Optional[str], optional): The sender email address. Defaults to None.
+            mail_subject (Optional[str], optional): The subject line of the email. Defaults to None.
+            mail_text (Optional[str], optional): The body text of the email. Defaults to None.
+            password_text (Optional[str], optional): The password text to include in the email. Defaults to None.
+
+        Returns:
+            SoapResponse: The response from the SOAP service containing a SendUserPasswordStatus value.
+        """
+        return self._call(
+            "SendUserPassword",
+            username=username,
+            fromEmail=from_email,
+            mailSubject=mail_subject,
+            mailText=mail_text,
+            passwordText=password_text,
+        )
+
     def update_external_account_user_xml(self, users: Optional[str] = None) -> SoapResponse:
         """
         Update external account user information using XML format.

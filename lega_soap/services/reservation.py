@@ -317,6 +317,21 @@ class ReservationService(BaseService):
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetReservationV4", sort=sort_xml, filter=filter_xml)
 
+    def get_reservation_v5(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
+        """
+        Retrieve reservation data using version 5 of the API.
+
+        Args:
+            sorting (Optional[SortSpec], optional): An optional sorting specification. Defaults to None.
+            filtering (Optional[FilterSpec], optional): An optional filtering specification. Defaults to None.
+
+        Returns:
+            SoapResponse: The response object containing the reservation data.
+        """
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetReservationV5", sort=sort_xml, filter=filter_xml)
+
     def get_reservation_xml(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieves reservation data in XML format, optionally applying sorting and filtering.
