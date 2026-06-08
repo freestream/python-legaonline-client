@@ -1,0 +1,6 @@
+1.0.2 (2026-06-08)
+------------------
+- Fix: patch LegaOnline WSDL at load time to declare missing xmlns:s namespace.
+  LegaOnline's WSDL uses s:string/s:int/s:boolean but omits xmlns:s declaration,
+  causing zeep to raise XMLParseError. The fix injects
+  xmlns:s="http://www.w3.org/2001/XMLSchema" on the root definitions element.

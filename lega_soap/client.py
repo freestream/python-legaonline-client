@@ -102,9 +102,22 @@ class Client:
         if zeep_client is None:
             from zeep.client import Client as ZeepClient  # local import
             from zeep.settings import Settings as ZeepSettings  # local import
+            from zeep.transports import Transport as ZeepTransport  # local import
+
+            class _PatchedTransport(ZeepTransport):
+                """Patches LegaOnline WSDL to declare xmlns:s which the server omits."""
+                def load(self, url):
+                    content = super().load(url)
+                    if b'xmlns:s=' not in content and b's:string' in content:
+                        content = content.replace(
+                            b'<wsdl:definitions ',
+                            b'<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" ',
+                            1,
+                        )
+                    return content
 
             settings = ZeepSettings(strict=False, xml_huge_tree=True)
-            zeep_client = ZeepClient(wsdl=wsdl_url, settings=settings)
+            zeep_client = ZeepClient(wsdl=wsdl_url, settings=settings, transport=_PatchedTransport())
 
         self.zeep_client: Any = zeep_client
         self.tzinfo: dt.tzinfo = tzinfo or get_default_tzinfo()
