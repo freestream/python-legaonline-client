@@ -1,6 +1,6 @@
 [project]
 name = "lega_soap"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name = "Anton Samuelsson", email = "samuelsson.anton@gmail.com" }
 ]
