@@ -82,6 +82,8 @@ class OccasionService(BaseService):
             start_date (Optional[dt.datetime]): Start date. Required in WSDL.
             end_date (Optional[dt.datetime]): End date. Required in WSDL.
             status_id (Optional[int]): Status ID. Required in WSDL.
+                See :class:`lega_soap.OccasionStatus` for values
+                (1=Booked, 2=Preliminary, 3=Canceled, 4=Locked).
             object_id (Optional[int]): Object ID. Required in WSDL.
             quantity (Optional[int]): Quantity. Required in WSDL.
 
@@ -710,7 +712,9 @@ class OccasionService(BaseService):
         Args:
             reservation_id (Optional[int], optional): The unique identifier of the reservation. Defaults to None.
             occasion_id (Optional[int], optional): The unique identifier of the occasion to update. Defaults to None.
-            status_id (Optional[int], optional): The new status identifier to set for the occasion. Defaults to None.
+            status_id (Optional[int], optional): The new status identifier to set for the occasion.
+                See :class:`lega_soap.OccasionStatus` for values
+                (1=Booked, 2=Preliminary, 3=Canceled, 4=Locked). Defaults to None.
 
         Returns:
             SoapResponse: The response object from the SOAP service containing the result

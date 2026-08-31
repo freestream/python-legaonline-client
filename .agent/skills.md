@@ -262,6 +262,23 @@ assert kwargs["reservationIDs"] == {"int": [1]}  # to_zeep() output
 
 ---
 
+## Enums
+
+Live in `enums.py`, re-exported from the package root (`from lega_soap import OccasionStatus`).
+All are `IntEnum`, so members are usable anywhere a plain `int` is accepted.
+
+| Enum | StatusID mapping | Used by |
+|------|-----------------|---------|
+| `OccasionStatus` | `1=BOOKED`, `2=PRELIMINARY`, `3=CANCELED`, `4=LOCKED` | `update_occasion_status`, `add_occasion_accessory` (the `status_id` / `StatusID` field) |
+
+```python
+from lega_soap import OccasionStatus
+
+service.update_occasion_status(reservation_id=1, occasion_id=2, status_id=OccasionStatus.CANCELED)
+```
+
+---
+
 ## What This Library Does NOT Handle
 
 - **Pagination**: no built-in page/offset support — callers must filter by ID ranges or dates
