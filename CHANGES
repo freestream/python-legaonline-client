@@ -1,3 +1,10 @@
+1.0.4 (2026-10-09)
+------------------
+- Remove GetInvoiceV7Xml (get_invoice_v7_xml): the operation does not exist in
+  the live LegaOnline WSDL (only GetInvoiceV7 and GetInvoiceV8 exist, without
+  Xml variants), so calling it raised a "SOAP method not found" error.
+- Verified all 227 live WSDL operations are covered by the client.
+
 1.0.2 (2026-06-08)
 ------------------
 - Fix: patch LegaOnline WSDL at load time to declare missing xmlns:s namespace.

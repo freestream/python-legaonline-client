@@ -94,12 +94,6 @@ def test_get_invoice_v7_calls_GetInvoiceV7(zeep_service, tzinfo) -> None:
     _assert_called(zeep_service, "GetInvoiceV7")
 
 
-def test_get_invoice_v7_xml_calls_GetInvoiceV7Xml(zeep_service, tzinfo) -> None:
-    svc = _make_svc(zeep_service, tzinfo)
-    svc.get_invoice_v7_xml()
-    _assert_called(zeep_service, "GetInvoiceV7Xml")
-
-
 def test_get_invoice_v8_calls_GetInvoiceV8(zeep_service, tzinfo) -> None:
     svc = _make_svc(zeep_service, tzinfo)
     svc.get_invoice_v8()

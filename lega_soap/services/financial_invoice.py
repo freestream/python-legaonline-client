@@ -327,28 +327,6 @@ class FinancialInvoiceService(BaseService):
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetInvoiceV7", sort=sort_xml, filter=filter_xml)
 
-    def get_invoice_v7_xml(
-        self,
-        sorting: Optional[SortSpec] = None,
-        filtering: Optional[FilterSpec] = None,
-    ) -> SoapResponse:
-        """
-        Retrieve invoice records in XML format using the V7 schema.
-
-        Args:
-            sorting (Optional[SortSpec], optional): Specification for sorting the results.
-                Defaults to None.
-            filtering (Optional[FilterSpec], optional): Specification for filtering the results.
-                Defaults to None.
-
-        Returns:
-            SoapResponse: The response from the SOAP service containing V7 invoice data
-                serialized as an XML string.
-        """
-        sort_xml = sorting.to_xml() if sorting else ""
-        filter_xml = filtering.to_xml() if filtering else ""
-        return self._call("GetInvoiceV7Xml", sort=sort_xml, filter=filter_xml)
-
     def get_invoice_v8(
         self,
         sorting: Optional[SortSpec] = None,
