@@ -173,6 +173,39 @@ class ReservationService(BaseService):
         filter_xml = filtering.to_xml() if filtering else ""
         return self._call("GetReservationAnswerListXmlV2", sort=sort_xml, filter=filter_xml)
 
+    def get_reservation_files(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
+        """
+        Retrieves the files attached to reservations, with optional sorting and filtering.
+
+        Returns an ArrayOfReservationFile. Each ReservationFile contains ReservationID,
+        ReservationNumber, FileName, Created, Comment, FileUrl, Tag and Source.
+
+        Args:
+            sorting (Optional[SortSpec], optional): An optional sorting specification to order the results. Defaults to None.
+            filtering (Optional[FilterSpec], optional): An optional filtering specification to filter the results. Defaults to None.
+
+        Returns:
+            SoapResponse: The response from the SOAP service containing the reservation files.
+        """
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetReservationFiles", sort=sort_xml, filter=filter_xml)
+
+    def get_reservation_files_xml(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
+        """
+        Retrieves the files attached to reservations in XML format.
+
+        Args:
+            sorting (Optional[SortSpec], optional): An optional sorting specification to order the results. Defaults to None.
+            filtering (Optional[FilterSpec], optional): An optional filtering specification to filter the results. Defaults to None.
+
+        Returns:
+            SoapResponse: The SOAP response containing the reservation files as an XML string.
+        """
+        sort_xml = sorting.to_xml() if sorting else ""
+        filter_xml = filtering.to_xml() if filtering else ""
+        return self._call("GetReservationFilesXml", sort=sort_xml, filter=filter_xml)
+
     def get_reservation_pickup_address(self, sorting: Optional[SortSpec] = None, filtering: Optional[FilterSpec] = None) -> SoapResponse:
         """
         Retrieves the pickup address for a reservation, with optional sorting and filtering.

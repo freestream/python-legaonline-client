@@ -1,3 +1,13 @@
+1.0.5 (2026-11-03)
+------------------
+- Add GetReservationFiles (get_reservation_files) and GetReservationFilesXml
+  (get_reservation_files_xml) on ReservationService. Both take optional sort and
+  filter specs and return reservation file attachments (ReservationID,
+  ReservationNumber, FileName, Created, Comment, FileUrl, Tag, Source). These
+  operations were newly added to the live LegaOnline rental WSDL.
+- Re-verified live WSDL operation coverage: all rental and financial operations
+  are now covered by the client.
+
 1.0.4 (2026-10-09)
 ------------------
 - Remove GetInvoiceV7Xml (get_invoice_v7_xml): the operation does not exist in
